@@ -12,7 +12,7 @@ public class TempClientVerticle extends AbstractVerticle {
     public void start(Promise<Void> promise) throws Exception {
       vertx.createHttpServer()
         .requestHandler(this::handleRequest)
-        .listen(8080)
+        .listen(8888)
         .onFailure(th -> promise.fail(th.getMessage()))
         .onSuccess(ok -> {
           System.out.println("Server started on port 8080");

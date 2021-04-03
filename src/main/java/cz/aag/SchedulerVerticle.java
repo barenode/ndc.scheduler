@@ -22,7 +22,7 @@ public class SchedulerVerticle extends AbstractVerticle {
     webClient = WebClient.create(vertx);
     vertx.createHttpServer()
       .requestHandler(this::handleRequest)
-      .listen(8888)
+      .listen(8080)
       .onFailure(th -> promise.fail(th.getMessage()))
       .onSuccess(ok -> {
         System.out.println("Server started on port 8080");
@@ -31,9 +31,9 @@ public class SchedulerVerticle extends AbstractVerticle {
 
   private void handleRequest(HttpServerRequest request) {
     CompositeFuture.all(
-      read(8080), 
-      read(8080), 
-      read(8080))
+      read(8888), 
+      read(8888), 
+      read(8888))
     .onSuccess(data -> {
       request.response().end(aggregate(data).encode());
     })      
