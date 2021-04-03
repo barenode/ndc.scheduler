@@ -31,9 +31,9 @@ public class SchedulerVerticle extends AbstractVerticle {
 
   private void handleRequest(HttpServerRequest request) {
     CompositeFuture.all(
-      readSimple(8080), 
-      readSimple(8080), 
-      readSimple(8080))
+      read(8080), 
+      read(8080), 
+      read(8080))
     .onSuccess(data -> {
       request.response().end(aggregate(data).encode());
     })      
@@ -73,6 +73,7 @@ public class SchedulerVerticle extends AbstractVerticle {
         promise.complete(res);          
       })
       .onFailure(err -> {
+        err.printStackTrace();
         promise.complete(new JsonObject());          
       });
     return promise.future();       
