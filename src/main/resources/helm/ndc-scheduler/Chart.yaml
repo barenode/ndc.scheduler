@@ -1,0 +1,5 @@
+apiVersion: v2
+name: ndc-scheduler
+description: NDC scheduler
+type: application
+version: ${project.version}
