@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Docker Image') {
             steps {
-                bat 'mvn jib:dockerBuild'                    
+                bat 'mvn jib:build'                    
             }
         }
         stage('Helm Chart') {
