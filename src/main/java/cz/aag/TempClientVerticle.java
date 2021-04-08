@@ -20,6 +20,9 @@ public class TempClientVerticle extends AbstractVerticle {
     }
 
     private void handleRequest(HttpServerRequest request) {
-      request.response().end("{\"_id\": \"" + UUID.randomUUID().toString() + "\"}");
+      vertx.executeBlocking(h -> {
+        try { Thread.sleep(5000L); } catch (Exception e) {}
+        request.response().end("{\"_id\": \"" + UUID.randomUUID().toString() + "\"}");
+      });      
     }    
 }

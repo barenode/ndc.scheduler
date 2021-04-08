@@ -4,11 +4,9 @@
 
 replicaCount: 1
 
-image:
-  repository: hylmar/ndc.scheduler
+image: hylmar/ndc.scheduler:${project.version}
+imageConfig:
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
 
 # imagePullSecrets: []
 # nameOverride: ""

@@ -1,6 +1,8 @@
 package cz.aag;
 
 
+import java.util.concurrent.TimeUnit;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
@@ -10,6 +12,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.ext.web.codec.BodyCodec;
 
@@ -19,7 +22,11 @@ public class SchedulerVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> promise) throws Exception {
-    webClient = WebClient.create(vertx);
+    WebClientOptions options = new WebClientOptions()
+      .setConnectTimeout(1000)
+      .setIdleTimeout(3000)
+      .setIdleTimeoutUnit(TimeUnit.MILLISECONDS);
+    webClient = WebClient.create(vertx, options);
     vertx.createHttpServer()
       .requestHandler(this::handleRequest)
       .listen(8080)
@@ -46,7 +53,7 @@ public class SchedulerVerticle extends AbstractVerticle {
     JsonObject result = new JsonObject();
     JsonArray data = new JsonArray();
     future.list().forEach(o -> data.add((JsonObject)o));
-    result.put("data", data);
+    result.put("datas", data);
     return result;
   }
 
