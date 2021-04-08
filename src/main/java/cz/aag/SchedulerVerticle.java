@@ -53,7 +53,7 @@ public class SchedulerVerticle extends AbstractVerticle {
     JsonObject result = new JsonObject();
     JsonArray data = new JsonArray();
     future.list().forEach(o -> data.add((JsonObject)o));
-    result.put("datas", data);
+    result.put("data", data);
     return result;
   }
 
